@@ -1,0 +1,15 @@
+version: "2.4"
+
+services:
+  grpc-java-service:
+    build:
+      context: ./service
+
+  proxy:
+    build:
+      context: ./grpc-proxy
+    depends_on:
+      - grpc-java-service
+    ports:
+      - 8080:8080
+
