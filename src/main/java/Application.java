@@ -11,6 +11,8 @@ public class Application {
 
 		server.start();
 
+		System.out.println("server listening at 3000");
+
 		// boring boilerplate here
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			server.shutdown();
