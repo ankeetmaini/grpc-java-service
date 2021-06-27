@@ -15,4 +15,30 @@ public class DemoServiceImpl extends DemoServiceGrpc.DemoServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public StreamObserver<Service.ChatRequest> chat(StreamObserver<Service.ChatResponse> responseObserver) {
+		return new StreamObserver<Service.ChatRequest>() {
+			@Override
+			public void onNext(Service.ChatRequest chatRequest) {
+				String message = chatRequest.getMessage();
+
+				Service.ChatResponse response = Service.ChatResponse.newBuilder()
+						.setReply("server says thanks for sending: " + message)
+						.build();
+
+				responseObserver.onNext(response);
+			}
+
+			@Override
+			public void onError(Throwable throwable) {
+
+			}
+
+			@Override
+			public void onCompleted() {
+				responseObserver.onCompleted();
+			}
+		};
+	}
 }
