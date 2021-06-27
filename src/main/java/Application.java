@@ -11,10 +11,10 @@ public class Application {
 
 		server.start();
 
+		// boring boilerplate here
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			server.shutdown();
 		}));
-
 		server.awaitTermination();
 	}
 }
