@@ -1,13 +1,5 @@
 # grpc-java-service
 
-building docker image by hand
+docker-compose up
 
-```bash
-docker build -t grpc-java-service .
-```
-
-running
-
-```bash
-docker container run grpc-java-service
-```
+// UI at 3000
