@@ -10,6 +10,13 @@ services:
       context: ./grpc-proxy
     depends_on:
       - grpc-java-service
+
+
+  web:
+    build:
+      context: ./web-app
+    depends_on:
+      - proxy
     ports:
-      - 8080:8080
+      - 3000:3000
 
