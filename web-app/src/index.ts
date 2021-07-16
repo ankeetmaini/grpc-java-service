@@ -1,29 +1,23 @@
-
-import { grpc } from "@improbable-eng/grpc-web";
+import { DemoServiceClient } from "./generated/ServiceServiceClientPb";
 import { SumRequest } from "./generated/service_pb";
-import { DemoService } from "./generated/service_pb_service";
+
 
 const sumForm = document.getElementById("sum-form");
 const sumResult = document.getElementById("sum-response");
 
-const callSumService = (a:number, b:number) => {
-
+const callSumService = async (a:number, b:number) => {
 	const request = new SumRequest();
-	request.setNum1(a);
-	request.setNum2(b);
+	request
+		.setNum1(a)
+		.setNum2(b);
 
-	grpc.unary(DemoService.Sum, {
-		request,
-		host: 'http://localhost:3000/api',
-	 	onEnd: res => {
-    	const { status, statusMessage, headers, message, trailers } = res;
-    	if (status === grpc.Code.OK && message) {
-				if (sumResult) {
-					sumResult.innerHTML = "gRPC response: " + message.toObject().sum;
-				}
-    	}
-		}
-	});
+	const client = new DemoServiceClient("http://localhost:3000/api");
+	const response = await client.sum(request, {'some-header': 'probably'});
+	
+
+	if (sumResult) {
+		sumResult.innerHTML = "gRPC response: " + response.getSum();
+	}
 }
 
 if (sumForm) {
