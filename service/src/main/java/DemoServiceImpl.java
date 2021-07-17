@@ -41,4 +41,16 @@ public class DemoServiceImpl extends DemoServiceGrpc.DemoServiceImplBase {
 			}
 		};
 	}
+
+	@Override
+	public void chatDump(Service.ChatRequest request, StreamObserver<Service.ChatResponse> responseObserver) {
+		String clientMessage = request.getMessage();
+
+		responseObserver.onNext(Service.ChatResponse.newBuilder().setReply("got message 1" + clientMessage).build());
+		responseObserver.onNext(Service.ChatResponse.newBuilder().setReply("got message 2" + clientMessage).build());
+		responseObserver.onNext(Service.ChatResponse.newBuilder().setReply("got message 3" + clientMessage).build());
+		responseObserver.onNext(Service.ChatResponse.newBuilder().setReply("got message 4" + clientMessage).build());
+		responseObserver.onNext(Service.ChatResponse.newBuilder().setReply("got message 5" + clientMessage).build());
+		responseObserver.onCompleted();
+	}
 }

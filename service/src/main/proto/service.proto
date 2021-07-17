@@ -20,4 +20,5 @@ message ChatResponse {
 service DemoService {
 	rpc Sum(SumRequest) returns (SumResponse);
 	rpc Chat(stream ChatRequest) returns (stream ChatResponse);
+	rpc ChatDump(ChatRequest) returns (stream ChatResponse);
 }
