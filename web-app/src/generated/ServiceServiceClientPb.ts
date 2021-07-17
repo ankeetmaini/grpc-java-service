@@ -75,5 +75,24 @@ export class DemoServiceClient {
     this.methodInfoSum);
   }
 
+  methodInfoChatDump = new grpcWeb.AbstractClientBase.MethodInfo(
+    service_pb.ChatResponse,
+    (request: service_pb.ChatRequest) => {
+      return request.serializeBinary();
+    },
+    service_pb.ChatResponse.deserializeBinary
+  );
+
+  chatDump(
+    request: service_pb.ChatRequest,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/DemoService/ChatDump',
+      request,
+      metadata || {},
+      this.methodInfoChatDump);
+  }
+
 }
 
